@@ -1,0 +1,6 @@
+usr/local/bin/demystify-qt usr/bin
+share/pixmaps/demystify32.xpm usr/share/pixmaps
+share/pixmaps/demystify16.xpm usr/share/pixmaps
+share/pixmaps/demystify128.png usr/share/pixmaps
+debian/demystify-qt.desktop usr/share/applications
+debian/demystify-qt.protocol usr/share/kde4/services/

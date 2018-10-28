@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  demystifyd The Demystify Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: demystifyd
+# processname: demystifyd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/demystifyd, see below
+if [ -f /etc/sysconfig/demystifyd ]; then
+        . /etc/sysconfig/demystifyd
+fi
+
+RETVAL=0
+
+prog=demystifyd
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/demystifyd
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/demystifyd}
+
+# demystifyd defaults to /usr/bin/demystifyd, override with BITCOIND_BIN
+demystifyd=${BITCOIND_BIN-/usr/bin/demystifyd}
+
+# demystifyd opts default to -disablewallet, override with BITCOIND_OPTS
+demystifyd_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $demystifyd $demystifyd_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

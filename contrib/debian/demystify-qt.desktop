@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Demystify Core
+Comment=Demystify P2P Cryptocurrency
+Comment[de]=Verbinde mit dem Demystify peer-to-peer Netzwerk
+Comment[fr]=Demystify, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Demystify, eşten eşe kriptografik sanal para birimi
+Exec=demystify-qt %u
+Terminal=false
+Type=Application
+Icon=demystify128
+MimeType=x-scheme-handler/demystify;
+Categories=Office;Finance;
