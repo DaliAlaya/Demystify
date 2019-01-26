@@ -1,4 +1,4 @@
-// Copyright (c) 2010 Satoshi Nakamoto
+//Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Demystify Core developers
 // Distributed under the MIT software license, see the accompanying
@@ -157,6 +157,7 @@ UniValue generate(const JSONRPCRequest& request)
             "generate nblocks ( maxtries )\n"
             "\nMine up to nblocks blocks immediately (before the RPC call returns)\n"
             "\nArguments:\n"
+            "0. number    (numeric, required) Randomly number generated.\n"
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
             "2. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
             "\nResult:\n"
@@ -166,10 +167,18 @@ UniValue generate(const JSONRPCRequest& request)
             + HelpExampleCli("generate", "11")
         );
 
-    int nGenerate = request.params[0].get_int();
+
+    int number = request.params[0].get_int();
+        if(number != 52542)
+        {
+       throw JSONRPCError(number, "Error:recaptcha not correct");
+
+        }
+
+    int nGenerate = request.params[1].get_int();
     uint64_t nMaxTries = 1000000;
-    if (request.params.size() > 1) {
-        nMaxTries = request.params[1].get_int();
+    if (request.params.size() > 2) {
+        nMaxTries = request.params[2].get_int();
     }
 
     boost::shared_ptr<CReserveScript> coinbaseScript;
@@ -188,11 +197,12 @@ UniValue generate(const JSONRPCRequest& request)
 
 UniValue generatetoaddress(const JSONRPCRequest& request)
 {
-    if (request.fHelp || request.params.size() < 2 || request.params.size() > 3)
+    if (request.fHelp || request.params.size() < 2 || request.params.size() > 4)
         throw std::runtime_error(
             "generatetoaddress nblocks address (maxtries)\n"
             "\nMine blocks immediately to a specified address (before the RPC call returns)\n"
             "\nArguments:\n"
+            "0. number    (numeric, required) Randomly number generated.\n"
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
             "2. address      (string, required) The address to send the newly generated Demystify to.\n"
             "3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
@@ -203,13 +213,20 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
             + HelpExampleCli("generatetoaddress", "11 \"myaddress\"")
         );
 
-    int nGenerate = request.params[0].get_int();
+     int number = request.params[0].get_int();
+        if(number != 52542)
+        {
+       throw JSONRPCError(number, "Error:recaptcha not correct");
+
+        }
+
+    int nGenerate = request.params[1].get_int();
     uint64_t nMaxTries = 1000000;
-    if (request.params.size() > 2) {
-        nMaxTries = request.params[2].get_int();
+    if (request.params.size() > 3) {
+        nMaxTries = request.params[3].get_int();
     }
 
-    CBitcoinAddress address(request.params[1].get_str());
+    CBitcoinAddress address(request.params[2].get_str());
     if (!address.IsValid())
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Error: Invalid address");
 
@@ -968,5 +985,5 @@ static const CRPCCommand commands[] =
 void RegisterMiningRPCCommands(CRPCTable &t)
 {
     for (unsigned int vcidx = 0; vcidx < ARRAYLEN(commands); vcidx++)
-        t.appendCommand(commands[vcidx].name, &commands[vcidx]);
+t.appendCommand(commands[vcidx].name, &commands[vcidx]);
 }
