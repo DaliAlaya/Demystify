@@ -157,7 +157,7 @@ UniValue generate(const JSONRPCRequest& request)
             "generate nblocks ( maxtries )\n"
             "\nMine up to nblocks blocks immediately (before the RPC call returns)\n"
             "\nArguments:\n"
-            "0. number    (numeric, required) Randomly number generated.\n"
+
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
             "2. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
             "\nResult:\n"
@@ -168,12 +168,6 @@ UniValue generate(const JSONRPCRequest& request)
         );
 
 
-    int number = request.params[0].get_int();
-        if(number != 52542)
-        {
-       throw JSONRPCError(number, "Error:recaptcha not correct");
-
-        }
 
     int nGenerate = request.params[1].get_int();
     uint64_t nMaxTries = 1000000;
@@ -202,7 +196,7 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
             "generatetoaddress nblocks address (maxtries)\n"
             "\nMine blocks immediately to a specified address (before the RPC call returns)\n"
             "\nArguments:\n"
-            "0. number    (numeric, required) Randomly number generated.\n"
+
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
             "2. address      (string, required) The address to send the newly generated Demystify to.\n"
             "3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
@@ -213,12 +207,6 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
             + HelpExampleCli("generatetoaddress", "11 \"myaddress\"")
         );
 
-     int number = request.params[0].get_int();
-        if(number != 52542)
-        {
-       throw JSONRPCError(number, "Error:recaptcha not correct");
-
-        }
 
     int nGenerate = request.params[1].get_int();
     uint64_t nMaxTries = 1000000;
