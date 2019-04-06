@@ -169,10 +169,10 @@ UniValue generate(const JSONRPCRequest& request)
 
 
 
-    int nGenerate = request.params[1].get_int();
+    int nGenerate = request.params[0].get_int();
     uint64_t nMaxTries = 1000000;
-    if (request.params.size() > 2) {
-        nMaxTries = request.params[2].get_int();
+    if (request.params.size() > 1) {
+        nMaxTries = request.params[1].get_int();
     }
 
     boost::shared_ptr<CReserveScript> coinbaseScript;
@@ -208,13 +208,13 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
         );
 
 
-    int nGenerate = request.params[1].get_int();
+    int nGenerate = request.params[0].get_int();
     uint64_t nMaxTries = 1000000;
-    if (request.params.size() > 3) {
-        nMaxTries = request.params[3].get_int();
+    if (request.params.size() > 2) {
+        nMaxTries = request.params[2].get_int();
     }
 
-    CBitcoinAddress address(request.params[2].get_str());
+    CBitcoinAddress address(request.params[1].get_str());
     if (!address.IsValid())
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Error: Invalid address");
 
